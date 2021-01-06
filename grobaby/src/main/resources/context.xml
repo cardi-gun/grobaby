@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:property-placeholder
+		location="classpath:db.properties" />
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="mybatis">
+		<constructor-arg ref="factory" />
+	</bean>
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		id="factory">
+		<property value="classpath:mybatis-config.xml"
+			name="configLocation" />
+		<property ref="dbcp" name="dataSource" />
+	</bean>
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dbcp"
+		destroy-method="close">
+		<property value="${jdbc.driver}" name="driverClassName" />
+		<property value="${jdbc.url}" name="url" />
+		<property value="${jdbc.user}" name="username" />
+		<property value="${jdbc.password}" name="password" />
+	</bean>
+</beans>

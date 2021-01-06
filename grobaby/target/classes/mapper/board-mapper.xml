@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<insert id="create" parameterType="BoardVO">
+		insert into BOARD values (BOARD_SEQ.NEXTVAL, #{BTITLE}, #{BCONTENT}, #{BDATE}, #{MID})
+	</insert>
+
+	<select id="one" parameterType="String" resultType="BoardVO">
+		<!-- sql구문 작성 -->
+		select * from BOARD where BCODE = #{BCODE}
+	</select>
+
+	<select id="list" resultType="BoardVO">
+		select * from BOARD ORDER BY BCODE DESC
+	</select>
+
+	<update id="update" parameterType="BoardVO">
+		update BOARD set BTITLE = #{BTITLE}, BCONTENT = #{BCONTENT} where BCODE = #{BCODE}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		delete from BOARD where BCODE = #{BCODE}
+	</delete>
+
+</mapper>
